@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+Home Page
+{% for post in posts %}
+<h1><a href="/post/{{post.id}}">{{post.title}}</a> </h1>
+<p> de <em>{{post.author}}</em> em {{ post.posted}}</p>
+<p> {{post.content}}</p>
+{% endfor %}
+{% endblock %}
