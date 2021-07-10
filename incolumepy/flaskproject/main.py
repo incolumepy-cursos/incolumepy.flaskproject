@@ -1,5 +1,6 @@
-from flask import Flask, render_template, flash
+from flask import Flask, render_template, flash, url_for, redirect
 from .forms import RegistrationForm, LoginForm
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "FVrpmovvW7LblKlVFmfLIk4n8X7sjuUOdIwe97udBDwLrVQtWge1cpKTwm0u137JovWZKDtFQXvZtOfBE0dLAz8H7LV"
 
