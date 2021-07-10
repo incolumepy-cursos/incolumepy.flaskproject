@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, flash
 from .forms import RegistrationForm, LoginForm
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "FVrpmovvW7LblKlVFmfLIk4n8X7sjuUOdIwe97udBDwLrVQtWge1cpKTwm0u137JovWZKDtFQXvZtOfBE0dLAz8H7LV"
@@ -56,6 +56,8 @@ def home():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Conta "{form.username.data}" criada com sucesso!', 'success')
     return render_template("register.html", form=form, title="Register")
 
 
