@@ -53,13 +53,13 @@ def home():
     return render_template("home.html", title=title, posts=posts)
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
     return render_template("register.html", form=form, title="Register")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     return render_template("login.html", form=form, title="Register")
