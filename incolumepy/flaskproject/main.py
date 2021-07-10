@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-
+from .forms import RegistrationForm, LoginForm
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "FVrpmovvW7LblKlVFmfLIk4n8X7sjuUOdIwe97udBDwLrVQtWge1cpKTwm0u137JovWZKDtFQXvZtOfBE0dLAz8H7LV"
 
@@ -51,3 +51,15 @@ def hello_world():
 def home():
     title = "Home Page"
     return render_template("home.html", title=title, posts=posts)
+
+
+@app.route("/register")
+def register():
+    form = RegistrationForm()
+    return render_template("register.html", form=form, title="Register")
+
+
+@app.route("/login")
+def login():
+    form = LoginForm()
+    return render_template("login.html", form=form, title="Register")
