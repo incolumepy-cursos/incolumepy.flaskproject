@@ -3,9 +3,9 @@
 __author__ = '@britodfbr'
 
 from flask import render_template, flash, url_for, redirect
-from . import app
+from . import app, db, bc
 from .forms import RegistrationForm, LoginForm
-from .models import posts
+from .models import posts, User
 
 
 @app.route("/hello")
@@ -29,8 +29,12 @@ def home():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        hashed_pw = bc.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_pw)
+        db.session.add(user)
+        db.session.commit()
         flash(f'Conta "{form.email.data}" criada com sucesso!', "success")
-        return redirect(url_for("home"))
+        return redirect(url_for("login"))
     return render_template("register.html", form=form, title="Register")
 
 
