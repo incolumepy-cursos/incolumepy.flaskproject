@@ -48,6 +48,12 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
+@app.errorhandler(404)
+def internal_server_error(e):
+    # note that we set the 500 status explicitly
+    return render_template('error.html', error=e)
+
+
 @app.route("/")
 def home():
     title = "Home Page"
