@@ -32,6 +32,7 @@ Flask = "^2.0.1"
 python-dotenv = "^0.18.0"
 Flask-WTF = "^0.15.1"
 WTForms = {extras = ["email"], version = "^2.3.3"}
+Flask-SQLAlchemy = "^2.5.1"
 
 [tool.poetry.dev-dependencies]
 
