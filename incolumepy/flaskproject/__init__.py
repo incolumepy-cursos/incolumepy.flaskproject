@@ -3,7 +3,6 @@
 __author__ = '@britodfbr'
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from .forms import RegistrationForm, LoginForm
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
