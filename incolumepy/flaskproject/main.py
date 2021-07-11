@@ -58,11 +58,18 @@ def home():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Conta "{form.username.data}" criada com sucesso!', 'success')
+        flash(f'Conta "{form.email.data}" criada com sucesso!', "success")
+        return redirect(url_for("home"))
     return render_template("register.html", form=form, title="Register")
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
-    return render_template("login.html", form=form, title="Register")
+    if form.validate_on_submit():
+        if form.email.data == 'user@incolume.com.br' and form.password.data == '123':
+            flash("Login with success", 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Please check your user or password', 'danger')
+    return render_template("login.html", form=form, title="Login")
