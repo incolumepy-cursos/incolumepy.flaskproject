@@ -6,6 +6,7 @@ from flask import render_template, flash, url_for, redirect
 from . import app, db, bc
 from .forms import RegistrationForm, LoginForm
 from .models import posts, User
+from flask_login import login_user
 
 
 @app.route("/hello")
@@ -42,7 +43,9 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'user@incolume.com.br' and form.password.data == '123':
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bc.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
             flash("Login with success", 'success')
             return redirect(url_for('home'))
         else:
