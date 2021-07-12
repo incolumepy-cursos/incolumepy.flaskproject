@@ -97,3 +97,20 @@ def account():
         form.email.data = current_user.email
     image_file = url_for('static', filename="profile_pics/{}".format(current_user.image_file))
     return render_template('account.html', title='Account', image_file=image_file, form=form)
+
+
+@app.route("/post/new", methods=["GET", "POST"])
+@login_required
+def post_create():
+    return render_template('post_create.html', title='New Post')
+
+
+@app.route("/post/delete/<post_id>", methods=["GET", "POST"])
+def post_delete(post_id):
+    pass
+
+
+@app.route("/post/update/<post_id>", methods=["GET", "POST"])
+def post_create(post_id):
+    pass
+
