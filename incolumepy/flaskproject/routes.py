@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 __author__ = '@britodfbr'
 
-from flask import render_template, flash, url_for, redirect
+from flask import render_template, flash, url_for, redirect, request
 from . import app, db, bc
 from .forms import RegistrationForm, LoginForm
 from .models import posts, User
@@ -53,7 +53,8 @@ def login():
         if user and bc.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             flash("Login with success", 'success')
-            return redirect(url_for('home'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Please check your user or password', 'danger')
     return render_template("login.html", form=form, title="Login")
