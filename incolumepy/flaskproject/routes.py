@@ -6,7 +6,7 @@ from flask import render_template, flash, url_for, redirect
 from . import app, db, bc
 from .forms import RegistrationForm, LoginForm
 from .models import posts, User
-from flask_login import login_user
+from flask_login import login_user, current_user
 
 
 @app.route("/hello")
@@ -28,6 +28,8 @@ def home():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_pw = bc.generate_password_hash(form.password.data).decode('utf-8')
@@ -41,6 +43,8 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
