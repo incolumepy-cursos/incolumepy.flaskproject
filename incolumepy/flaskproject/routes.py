@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 __author__ = '@britodfbr'
 from pathlib import Path
+from PIL import Image
 from random import choices
 from string import hexdigits
 from flask import render_template, flash, url_for, redirect, request
@@ -68,11 +69,13 @@ def logout():
     return redirect(url_for("home"))
 
 
-def save_picture(form_pic):
+def save_picture(form_pic, size: tuple = (125, 125)):
     randon_hex = ''.join(choices(hexdigits, k=8))
     f = Path(form_pic.filename)
     fn = Path(app.root_path)/'static/profile_pics'/f"avatar_{randon_hex}{f.suffix}"
-    form_pic.save(fn)
+    i = Image.open(form_pic)
+    i.thumbnail(size)
+    i.save(fn)
     # print(fn)
     return fn.name
 
