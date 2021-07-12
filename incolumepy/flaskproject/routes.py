@@ -6,7 +6,7 @@ from flask import render_template, flash, url_for, redirect
 from . import app, db, bc
 from .forms import RegistrationForm, LoginForm
 from .models import posts, User
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 @app.route("/hello")
@@ -14,10 +14,12 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
+@app.errorhandler(401)
+@app.errorhandler(403)
 @app.errorhandler(404)
 def internal_server_error(e):
     # note that we set the 500 status explicitly
-    return render_template('error.html', error=e)
+    return render_template('error.html', error=e, title=e.name)
 
 
 @app.route("/")
@@ -55,3 +57,15 @@ def login():
         else:
             flash('Please check your user or password', 'danger')
     return render_template("login.html", form=form, title="Login")
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
+
+
+@app.route("/account")
+@login_required
+def account():
+    return render_template('account.html', title='Account')
