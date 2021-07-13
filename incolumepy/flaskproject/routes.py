@@ -138,7 +138,7 @@ def post_update(post_id):
     return render_template('post_create.html', title='Update Post', form=form, legend="Update Post")
 
 
-@app.route("/post/<int:post_id>/delete", methods=["GET", "POST"])
+@app.route("/post/<int:post_id>/delete", methods=["POST"])
 def post_delete(post_id):
     return f"Delete {post_id}"
 
