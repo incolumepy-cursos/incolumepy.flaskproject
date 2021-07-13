@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 {% block content %}
-Home Page
 {% for post in posts %}
 <article class="media content-section">
   <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/{}'.format(post.author.image_file)) }}">
