@@ -113,12 +113,16 @@ def post_create():
     return render_template('post_create.html', title='New Post', form=form)
 
 
-@app.route("/post/delete/<post_id>", methods=["GET", "POST"])
+@app.route("/post/<int:post_id>/delete", methods=["GET", "POST"])
 def post_delete(post_id):
     pass
 
 
-@app.route("/post/update/<post_id>", methods=["GET", "POST"])
+@app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 def post_update(post_id):
     pass
 
+
+@app.route("/post/<int:post_id>", methods=["GET", "POST"])
+def post_read(post_id):
+    return f"Post {post_id}"
