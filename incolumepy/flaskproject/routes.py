@@ -139,6 +139,7 @@ def post_update(post_id):
 
 
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
+@login_required
 def post_delete(post_id):
     return f"Delete {post_id}"
 
