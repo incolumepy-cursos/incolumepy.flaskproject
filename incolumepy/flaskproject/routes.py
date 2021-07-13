@@ -7,7 +7,7 @@ from random import choices
 from string import hexdigits
 from flask import render_template, flash, url_for, redirect, request
 from . import app, db, bc
-from .forms import RegistrationForm, LoginForm, UpdateAccountForm
+from .forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from .models import posts, User
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -102,7 +102,11 @@ def account():
 @app.route("/post/new", methods=["GET", "POST"])
 @login_required
 def post_create():
-    return render_template('post_create.html', title='New Post')
+    form = PostForm()
+    if form.validate_on_submit():
+        flash("Post criado com sucesso", "success")
+        return redirect(url_for("home"))
+    return render_template('post_create.html', title='New Post', form=form)
 
 
 @app.route("/post/delete/<post_id>", methods=["GET", "POST"])
@@ -111,6 +115,6 @@ def post_delete(post_id):
 
 
 @app.route("/post/update/<post_id>", methods=["GET", "POST"])
-def post_create(post_id):
+def post_update(post_id):
     pass
 
