@@ -142,6 +142,12 @@ def post_update(post_id):
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
 @login_required
 def post_delete(post_id):
-    return f"Delete {post_id}"
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post deleted', 'success')
+    return redirect(url_for('home'))
 
 
