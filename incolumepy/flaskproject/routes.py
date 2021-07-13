@@ -5,7 +5,7 @@ from pathlib import Path
 from PIL import Image
 from random import choices
 from string import hexdigits
-from flask import render_template, flash, url_for, redirect, request
+from flask import render_template, flash, url_for, redirect, request, abort
 from . import app, db, bc
 from .forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from .models import posts, User, Post
@@ -121,7 +121,11 @@ def post_read(post_id):
 
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 def post_update(post_id):
-    return f"Update {post_id}"
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    return render_template('post_create.html', title='Update Post', form=form, legend="Update Post")
 
 
 @app.route("/post/<int:post_id>/delete", methods=["GET", "POST"])
