@@ -28,7 +28,7 @@ def internal_server_error(e):
 @app.route("/")
 def home():
     title = "Home Page"
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.id.desc())
     return render_template("home.html", title=title, posts=posts)
 
 
@@ -126,6 +126,6 @@ def post_update(post_id):
 
 @app.route("/post/<int:post_id>/delete", methods=["GET", "POST"])
 def post_delete(post_id):
-    return f"Update {post_id}"
+    return f"Delete {post_id}"
 
 
