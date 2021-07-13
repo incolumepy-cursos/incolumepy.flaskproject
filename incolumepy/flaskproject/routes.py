@@ -8,7 +8,7 @@ from string import hexdigits
 from flask import render_template, flash, url_for, redirect, request
 from . import app, db, bc
 from .forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
-from .models import posts, User
+from .models import posts, User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -104,6 +104,9 @@ def account():
 def post_create():
     form = PostForm()
     if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
         flash("Post criado com sucesso", "success")
         return redirect(url_for("home"))
     return render_template('post_create.html', title='New Post', form=form)
