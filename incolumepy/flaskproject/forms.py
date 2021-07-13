@@ -3,7 +3,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import Length, DataRequired, Email, EqualTo, ValidationError
 from .models import User
 __author__ = "@britodfbr"
@@ -57,3 +57,9 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=field.data).first()
             if user:
                 raise ValidationError(f'alrady exist <<{field.data}>>, choice another')
+
+
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')
