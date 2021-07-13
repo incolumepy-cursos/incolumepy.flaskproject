@@ -160,3 +160,11 @@ def user_posts(username):
         .order_by(Post.posted.desc())\
         .paginate(page=page, per_page=5)
     return render_template('user_posts.html', posts=posts, user=user)
+
+
+@app.route("/user")
+@login_required
+def user():
+    page = request.args.get(key='page', default=1, type=int)
+    users = User.query.order_by(User.username).paginate(page=page, per_page=10)
+    return render_template('users.html', title="Usuários Registrados", users=users, page=page)
