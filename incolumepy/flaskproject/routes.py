@@ -28,6 +28,7 @@ def internal_server_error(e):
 @app.route("/")
 def home():
     title = "Home Page"
+    posts = Post.query.all()
     return render_template("home.html", title=title, posts=posts)
 
 
