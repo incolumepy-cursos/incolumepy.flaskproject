@@ -120,6 +120,7 @@ def post_read(post_id):
 
 
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
+@login_required
 def post_update(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
