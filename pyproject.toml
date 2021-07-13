@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "incolumepy.flaskproject"
-version = "1.0.10"
+version = "1.0.11"
 description = ""
 authors = ["Britodfbr <britodfbr@gmail.com>"]
 packages=[
