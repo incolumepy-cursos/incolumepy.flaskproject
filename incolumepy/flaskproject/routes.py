@@ -208,5 +208,11 @@ def reset_token(token):
         flash("That is a invalid or expired token", "warning")
         return redirect(url_for('reset_request'))
     form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_pw = bc.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_pw
+        db.session.commit()
+        flash(f'Senha para "{user.email}" atualizada com sucesso!', "success")
+        return redirect(url_for("login"))
     return render_template('reset_token.html', form=form, title="Reset Password")
 
