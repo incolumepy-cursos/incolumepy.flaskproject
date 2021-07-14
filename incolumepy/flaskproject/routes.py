@@ -14,15 +14,6 @@ from flask_mail import Message
 
 
 
-@app.errorhandler(401)
-@app.errorhandler(403)
-@app.errorhandler(404)
-@app.errorhandler(405)
-def internal_server_error(e):
-    # note that we set the HTTP status code explicitly
-    return render_template('error.html', error=e, title=e.name)
-
-
 
 
 
