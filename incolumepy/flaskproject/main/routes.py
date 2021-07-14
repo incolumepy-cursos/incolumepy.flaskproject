@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = '@britodfbr'
-from flask import Blueprint
+from flask import Blueprint, request, render_template
+from incolumepy.flaskproject.models import Post
+
 
 main = Blueprint('main', __name__)
 

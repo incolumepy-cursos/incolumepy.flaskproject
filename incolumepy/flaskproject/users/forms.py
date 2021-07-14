@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = '@britodfbr'
+from flask_login import current_user
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import Length, DataRequired, Email, EqualTo, ValidationError
+from incolumepy.flaskproject.models import User
 
 
 class RegistrationForm(FlaskForm):
@@ -51,7 +57,6 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=field.data).first()
             if user:
                 raise ValidationError(f'alrady exist <<{field.data}>>, choice another')
-
 
 
 class RequestResetForm(FlaskForm):

@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = '@britodfbr'
-from flask import Blueprint
+from flask import Blueprint, render_template, redirect, url_for, flash, abort, request
+from flask_login import login_required, current_user
+from incolumepy.flaskproject.models import Post, db
+from incolumepy.flaskproject.posts.forms import PostForm
+
 
 posts = Blueprint('posts', __name__)
 

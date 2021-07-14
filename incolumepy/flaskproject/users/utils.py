@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = '@britodfbr'
+from random import choices
+from pathlib import Path
+from PIL import Image
+from string import hexdigits
+from flask import url_for
+from flask_mail import Message
+from incolumepy.flaskproject import app, mail
 
 
 def save_picture(form_pic, size: tuple = (125, 125)):
