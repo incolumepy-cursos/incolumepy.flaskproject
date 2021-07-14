@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 __author__ = '@britodfbr'
 import datetime as dt
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired
 from . import db, login_manager, app
 from flask_login import UserMixin
 
@@ -29,7 +29,7 @@ class User(db.Model, UserMixin):
         s = Serializer(app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
-        except:
+        except (SignatureExpired, BadSignature):
             return None
         return User.query.get(user_id)
 
