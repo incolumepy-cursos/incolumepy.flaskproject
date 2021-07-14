@@ -6,10 +6,11 @@ from PIL import Image
 from random import choices
 from string import hexdigits
 from flask import render_template, flash, url_for, redirect, request, abort
-from . import app, db, bc
+from . import app, db, bc, mail
 from .forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 from .models import posts, User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Message
 
 
 @app.route("/hello")
@@ -171,8 +172,18 @@ def user():
 
 
 def send_reset_email(user):
-    ...
+    token = user.get_reset_token()
+    msg = Message(
+        'Password Reset Request',
+        sender='noreply@incolume.com.br',
+        recipients=[user.email]
+    )
+    msg.body = f""" Para prosseguir com a requisição de alteração de senha, visite o link abaixo:
+{url_for('reset_token', token=token, _external=True)}
 
+Se Você não solicitou esta mudança, simplesmente ignore esta mensagem.
+"""
+    mail.send(msg)
 
 @app.route('reset_password', methods=['GET', 'POST'])
 def reset_request():
