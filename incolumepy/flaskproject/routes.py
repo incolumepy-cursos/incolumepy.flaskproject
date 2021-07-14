@@ -170,6 +170,10 @@ def user():
     return render_template('users.html', title="Usuários Registrados", users=users, page=page)
 
 
+def send_reset_email(user):
+    ...
+
+
 @app.route('reset_password', methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticate():
