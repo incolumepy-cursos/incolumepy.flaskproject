@@ -185,7 +185,8 @@ Se Você não solicitou esta mudança, simplesmente ignore esta mensagem.
 """
     mail.send(msg)
 
-@app.route('reset_password', methods=['GET', 'POST'])
+
+@app.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
