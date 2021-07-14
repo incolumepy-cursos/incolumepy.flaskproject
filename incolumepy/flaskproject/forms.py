@@ -63,3 +63,13 @@ class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, field):
+        user = User.query.filter_by(email=field.data).first()
+        if user is None:
+            raise ValidationError(f'There is not account with <<{field.data}>>, You must register first.')
