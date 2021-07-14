@@ -7,7 +7,7 @@ from random import choices
 from string import hexdigits
 from flask import render_template, flash, url_for, redirect, request, abort
 from . import app, db, bc
-from .forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+from .forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, ResetPasswordForm
 from .models import posts, User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -168,3 +168,16 @@ def user():
     page = request.args.get(key='page', default=1, type=int)
     users = User.query.order_by(User.username).paginate(page=page, per_page=10)
     return render_template('users.html', title="Usuários Registrados", users=users, page=page)
+
+
+@app.route("/reset_password/<token>", methods=["GET", "POST"])
+def reset_token(token):
+    if current_user.is_authenticate():
+        return redirect(url_for('home'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash("That is a invalid or expired token", "warning")
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    return render_template('reset_token.html', form=form, title="Reset Password")
+
