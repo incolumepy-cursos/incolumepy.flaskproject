@@ -13,10 +13,6 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 
 
-@app.route("/hello")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
 
 @app.errorhandler(401)
 @app.errorhandler(403)
@@ -26,13 +22,6 @@ def internal_server_error(e):
     # note that we set the HTTP status code explicitly
     return render_template('error.html', error=e, title=e.name)
 
-
-@app.route("/")
-def home():
-    title = "Home Page"
-    page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=3)
-    return render_template("home.html", title=title, posts=posts)
 
 
 
