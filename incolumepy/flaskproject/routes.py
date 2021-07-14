@@ -7,7 +7,7 @@ from random import choices
 from string import hexdigits
 from flask import render_template, flash, url_for, redirect, request, abort
 from . import app, db, bc
-from .forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, ResetPasswordForm
+from .forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
 from .models import posts, User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -168,6 +168,19 @@ def user():
     page = request.args.get(key='page', default=1, type=int)
     users = User.query.order_by(User.username).paginate(page=page, per_page=10)
     return render_template('users.html', title="Usuários Registrados", users=users, page=page)
+
+
+@app.route('reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticate():
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash("An email has been sent with instructions to reset your password", "info")
+        return redirect(url_for('login'))
+    return render_template('reset_request.html', form=form, title="Reset Password")
 
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
