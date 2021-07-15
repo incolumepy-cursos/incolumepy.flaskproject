@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = '@britodfbr'
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, abort
 from incolumepy.flaskproject.models import Post
 
 
@@ -20,3 +20,28 @@ def home():
 @main.route("/hello")
 def hello_world():
     return "<p>Hello, World!</p>"
+
+
+@main.route('/401')
+def error401():
+    abort(401)
+
+
+@main.route('/403')
+def error403():
+    abort(403)
+
+
+@main.route('/404')
+def error404():
+    abort(404)
+
+
+@main.route('/405')
+def error405():
+    abort(405)
+
+
+@main.route('/500')
+def error500():
+    abort(500, "Ops.. Erro interno")
