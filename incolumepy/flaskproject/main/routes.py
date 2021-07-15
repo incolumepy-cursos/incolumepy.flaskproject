@@ -8,15 +8,6 @@ from incolumepy.flaskproject.models import Post
 main = Blueprint('main', __name__)
 
 
-@main.errorhandler(401)
-@main.errorhandler(403)
-@main.errorhandler(404)
-@main.errorhandler(405)
-def internal_server_error(e):
-    # note that we set the HTTP status code explicitly
-    return render_template('error.html', error=e, title=e.name)
-
-
 @main.route("/")
 @main.route("/home")
 def home():
