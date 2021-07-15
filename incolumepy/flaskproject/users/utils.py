@@ -5,15 +5,15 @@ from random import choices
 from pathlib import Path
 from PIL import Image
 from string import hexdigits
-from flask import url_for
+from flask import url_for, current_app
 from flask_mail import Message
-from incolumepy.flaskproject import app, mail
+from incolumepy.flaskproject import mail
 
 
 def save_picture(form_pic, size: tuple = (125, 125)):
     randon_hex = ''.join(choices(hexdigits, k=8))
     f = Path(form_pic.filename)
-    fn = Path(app.root_path)/'static/profile_pics'/f"avatar_{randon_hex}{f.suffix}"
+    fn = Path(current_app.root_path)/'static/profile_pics'/f"avatar_{randon_hex}{f.suffix}"
     i = Image.open(form_pic)
     i.thumbnail(size)
     i.save(fn)
