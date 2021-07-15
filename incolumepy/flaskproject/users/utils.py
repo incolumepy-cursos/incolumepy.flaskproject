@@ -29,7 +29,7 @@ def send_reset_email(user):
         recipients=[user.email]
     )
     msg.body = f""" Para prosseguir com a requisição de alteração de senha, visite o link abaixo:
-{url_for('reset_token', token=token, _external=True)}
+{url_for('users.reset_token', token=token, _external=True)}
 
 Se Você não solicitou esta mudança, simplesmente ignore esta mensagem.
 """

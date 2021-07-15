@@ -4,18 +4,18 @@
   <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/{}'.format(post.author.image_file)) }}">
   <div class="media-body">
     <div class="article-metadata">
-      <a class="mr-2" href="{{url_for('user_posts', username=post.author.username)}}">{{ post.author.username }}</a>
+      <a class="mr-2" href="{{url_for('users.user_posts', username=post.author.username)}}">{{ post.author.username }}</a>
       <small class="text-muted">{{ post.posted.strftime("%F") }}</small>
         {% if post.author == current_user %}
         <div>
-            <a href="{{ url_for('post_update', post_id=post.id) }}" class="btn btn-secondary btn-sn m-1">
+            <a href="{{ url_for('posts.post_update', post_id=post.id) }}" class="btn btn-secondary btn-sn m-1">
                 Update
             </a>
             <button class="btn btn-danger btn-sn m-1" data-bs-toggle="modal" data-bs-target="#deleteModal"> Delete </button>
         </div>
         {% endif %}
     </div>
-    <h2><a class="article-title" href="{{ url_for('post_read', post_id=post.id) }}">{{ post.title }}</a></h2>
+    <h2><a class="article-title" href="{{ url_for('posts.post_read', post_id=post.id) }}">{{ post.title }}</a></h2>
     <p class="article-content">{{ post.content }}</p>
   </div>
 </article>
@@ -32,7 +32,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <form method="post" action="{{ url_for('post_delete', post_id=post.id) }}">
+        <form method="post" action="{{ url_for('posts.post_delete', post_id=post.id) }}">
             <input type="submit" class="btn btn-danger" value="Delete">
         </form>
       </div>
