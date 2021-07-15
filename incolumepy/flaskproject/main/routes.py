@@ -3,7 +3,8 @@
 __author__ = '@britodfbr'
 from flask import Blueprint, request, render_template, abort
 from incolumepy.flaskproject.models import Post
-
+from markdown import markdown
+from pathlib import Path
 
 main = Blueprint('main', __name__)
 
@@ -15,6 +16,14 @@ def home():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=3)
     return render_template("home.html", title=title, posts=posts)
+
+
+@main.route("/about")
+def about():
+    f = Path(__file__[:__file__.index('incolumepy')]).joinpath('README.md')
+    html = f.read_text()
+    content = markdown(html)
+    return f"{content}"
 
 
 @main.route("/hello")
