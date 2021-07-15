@@ -8,7 +8,7 @@ Ministrado por  [Corey Schafer](https://www.youtube.com/channel/UCCezIgC97PvUuR4
 
 Os fontes desenvolvidos neste projeto estão disponíveis em https://github.com/incolumepy-cursos/incolumepy.flaskproject
 
-O curso está subdividido em 15 vídeos:
+## O curso está subdividido em 15 vídeos:
 - [Introdução ao Flask](https://youtu.be/MwZwr5Tvyxo)
 - [Templates](https://youtu.be/QnDWIZuWYW0)
 - [Formulários](https://youtu.be/UIJKdCIEXUQ)
