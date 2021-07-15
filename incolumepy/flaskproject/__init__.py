@@ -8,21 +8,27 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from incolumepy.flaskproject.configure import Config
 
-app = Flask(__name__)
-app.config.from_object(Config)
 
-db = SQLAlchemy(app)
-bc = Bcrypt(app)
-login_manager = LoginManager(app)
+db = SQLAlchemy()
+bc = Bcrypt()
+login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
+mail = Mail()
 
-mail = Mail(app)
 
-from incolumepy.flaskproject.main.routes import main
-from incolumepy.flaskproject.users.routes import users
-from incolumepy.flaskproject.posts.routes import posts
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+    db.init_app(app)
+    bc.init_app(app)
+    login_manager.init_app(app)
+    mail.init_app(app)
 
-app.register_blueprint(main)
-app.register_blueprint(users)
-app.register_blueprint(posts)
+    from incolumepy.flaskproject.main.routes import main
+    from incolumepy.flaskproject.users.routes import users
+    from incolumepy.flaskproject.posts.routes import posts
+
+    app.register_blueprint(main)
+    app.register_blueprint(users)
+    app.register_blueprint(posts)
