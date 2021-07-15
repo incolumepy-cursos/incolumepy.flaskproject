@@ -24,4 +24,10 @@ app.config["MAIL_USERNAME"] = os.environ.get('EMAIL_USER')
 app.config["MAIL_PASSWORD"] = os.environ.get('EMAIL_PW')
 mail = Mail(app)
 
-from . import routes
+from incolumepy.flaskproject.main.routes import main
+from incolumepy.flaskproject.users.routes import users
+from incolumepy.flaskproject.posts.routes import posts
+
+app.register_blueprint(main)
+app.register_blueprint(users)
+app.register_blueprint(posts)
