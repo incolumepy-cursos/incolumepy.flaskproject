@@ -21,9 +21,9 @@ def home():
 @main.route("/about")
 def about():
     f = Path(__file__[:__file__.index('incolumepy')]).joinpath('README.md')
-    html = f.read_text()
-    content = markdown(html)
-    return f"{content}"
+    content = f.read_text()
+    html = markdown(content)
+    return render_template("generic_page.html", content=html, title='About')
 
 
 @main.route("/hello")
