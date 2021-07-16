@@ -1,0 +1,2 @@
+language = "python3"
+run = "export FLASK_ENV=development; export FLASK_APP=main:create_app; flask run -p 8080 -h 0.0.0.0"
