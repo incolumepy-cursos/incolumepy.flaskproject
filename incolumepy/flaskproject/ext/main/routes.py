@@ -3,7 +3,7 @@
 __author__ = '@britodfbr'
 
 from flask import Blueprint, request, render_template, abort
-# from incolumepy.flaskproject.models import Post
+from incolumepy.flaskproject.ext.dbase.models import Post
 from markdown import markdown
 from pathlib import Path
 bp = Blueprint('main', __name__)
@@ -14,9 +14,8 @@ bp = Blueprint('main', __name__)
 def home():
     title = "Home Page"
     page = request.args.get('page', 1, type=int)
-    return title
-    # posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=3)
-    # return render_template("home.html", title=title, posts=posts)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page=page, per_page=3)
+    return render_template("home.html", title=title, posts=posts)
 
 
 @bp.route("/about")

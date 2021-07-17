@@ -3,7 +3,7 @@
 __author__ = '@britodfbr'
 from flask import Blueprint, render_template, redirect, url_for, flash, abort, request
 from flask_login import login_required, current_user
-from incolumepy.flaskproject.models import Post, db
+from incolumepy.flaskproject.ext.dbase.models import Post, db
 from incolumepy.flaskproject.ext.posts.forms import PostForm
 
 
