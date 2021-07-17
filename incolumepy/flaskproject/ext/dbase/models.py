@@ -5,7 +5,8 @@ import datetime as dt
 from flask import current_app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired
-from . import db, login_manager
+from incolumepy.flaskproject import login_manager
+from incolumepy.flaskproject.ext.dbase import db
 
 
 @login_manager.user_loader
