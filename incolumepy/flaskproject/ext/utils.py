@@ -7,7 +7,7 @@ from PIL import Image
 from string import hexdigits
 from flask import url_for, current_app
 from flask_mail import Message
-from incolumepy.flaskproject import mail
+from .mail import mail
 
 
 def save_picture(form_pic, size: tuple = (125, 125)):
