@@ -5,7 +5,7 @@ from flask import Blueprint, request, redirect, render_template, flash, url_for
 from flask_login import current_user, login_required, logout_user, login_user
 from incolumepy.flaskproject import db, bc
 from incolumepy.flaskproject.models import User, Post
-from incolumepy.flaskproject.users.forms import (
+from incolumepy.flaskproject.ext.users.forms import (
     RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
 )
 from .utils import save_picture, send_reset_email

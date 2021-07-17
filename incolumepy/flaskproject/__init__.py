@@ -25,10 +25,10 @@ def create_app(config_class=Config, *args, **kwargs):
     login_manager.init_app(app)
     mail.init_app(app)
 
-    from incolumepy.flaskproject.main.routes import main
-    from incolumepy.flaskproject.users.routes import users
-    from incolumepy.flaskproject.posts.routes import posts
-    from incolumepy.flaskproject.errors.handlers import errors
+    from incolumepy.flaskproject.ext.main.routes import main
+    from incolumepy.flaskproject.ext.users.routes import users
+    from incolumepy.flaskproject.ext.posts.routes import posts
+    from incolumepy.flaskproject.ext.errors.handlers import errors
     app.register_blueprint(main)
     app.register_blueprint(users)
     app.register_blueprint(posts)
