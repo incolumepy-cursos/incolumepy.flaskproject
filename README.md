@@ -7,7 +7,7 @@ Este projeto utiliza como referência o curso Flask
 Ministrado por  [Corey Schafer](https://www.youtube.com/channel/UCCezIgC97PvUuR4_gbFUs5g), em seu canal no Youtube.
 
 Os fontes desenvolvidos neste projeto estão disponíveis em https://github.com/incolumepy-cursos/incolumepy.flaskproject
-
+Também há uma versão em execução disponível em [https://flask-project-incolumepy.herokuapp.com/](https://flask-project-incolumepy.herokuapp.com/)
 ## O curso está subdividido em 15 vídeos:
 - [Introdução ao Flask](https://youtu.be/MwZwr5Tvyxo)
 - [Templates](https://youtu.be/QnDWIZuWYW0)
