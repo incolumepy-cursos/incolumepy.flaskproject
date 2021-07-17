@@ -3,17 +3,17 @@
 __author__ = '@britodfbr'
 from flask import Blueprint, request, redirect, render_template, flash, url_for
 from flask_login import current_user, login_required, logout_user, login_user
-from incolumepy.flaskproject import db, bc
-from incolumepy.flaskproject.models import User, Post
+from incolumepy.flaskproject.ext.auth import bc
+from incolumepy.flaskproject.ext.dbase.models import db, User, Post
 from incolumepy.flaskproject.ext.users.forms import (
     RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
 )
-from .utils import save_picture, send_reset_email
+from incolumepy.flaskproject.ext.utils import save_picture, send_reset_email
 
-users = Blueprint('users', __name__)
+bp = Blueprint('users', __name__)
 
 
-@users.route("/register", methods=["GET", "POST"])
+@bp.route("/register", methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
@@ -28,7 +28,7 @@ def register():
     return render_template("register.html", form=form, title="Register")
 
 
-@users.route("/login", methods=["GET", "POST"])
+@bp.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
@@ -45,13 +45,13 @@ def login():
     return render_template("login.html", form=form, title="Login")
 
 
-@users.route("/logout")
+@bp.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("main.home"))
 
 
-@users.route("/account", methods=['GET', 'POST'])
+@bp.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
@@ -70,7 +70,7 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
-@users.route("/user/<string:username>")
+@bp.route("/user/<string:username>")
 def user_posts(username):
     page = request.args.get(key='page', default=1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
@@ -80,7 +80,7 @@ def user_posts(username):
     return render_template('user_posts.html', posts=posts, user=user)
 
 
-@users.route("/user")
+@bp.route("/user")
 @login_required
 def user():
     page = request.args.get(key='page', default=1, type=int)
@@ -88,7 +88,7 @@ def user():
     return render_template('users.html', title="Usuários Registrados", users=users, page=page)
 
 
-@users.route('/reset_password', methods=['GET', 'POST'])
+@bp.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
@@ -101,7 +101,7 @@ def reset_request():
     return render_template('reset_request.html', form=form, title="Reset Password")
 
 
-@users.route("/reset_password/<token>", methods=["GET", "POST"])
+@bp.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_token(token):
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))

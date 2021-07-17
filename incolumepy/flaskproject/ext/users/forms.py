@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import Length, DataRequired, Email, EqualTo, ValidationError
-from incolumepy.flaskproject.models import User
+from incolumepy.flaskproject.ext.dbase.models import User
 
 
 class RegistrationForm(FlaskForm):
