@@ -5,13 +5,7 @@ import datetime as dt
 from flask import current_app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired
-from incolumepy.flaskproject import login_manager
 from incolumepy.flaskproject.ext.dbase import db
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
 
 
 class User(db.Model, UserMixin):
