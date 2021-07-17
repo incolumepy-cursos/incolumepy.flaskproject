@@ -7,10 +7,10 @@ from incolumepy.flaskproject.models import Post, db
 from incolumepy.flaskproject.ext.posts.forms import PostForm
 
 
-posts = Blueprint('posts', __name__)
+bp = Blueprint('posts', __name__)
 
 
-@posts.route("/post/new", methods=["GET", "POST"])
+@bp.route("/post/new", methods=["GET", "POST"])
 @login_required
 def post_create():
     form = PostForm()
@@ -23,13 +23,13 @@ def post_create():
     return render_template('post_create.html', title='New Post', form=form, legend="New Post")
 
 
-@posts.route("/post/<int:post_id>")
+@bp.route("/post/<int:post_id>")
 def post_read(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title=post.title, post=post)
 
 
-@posts.route("/post/<int:post_id>/update", methods=["GET", "POST"])
+@bp.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 @login_required
 def post_update(post_id):
     post = Post.query.get_or_404(post_id)
@@ -41,14 +41,14 @@ def post_update(post_id):
         post.content = form.content.data
         db.session.commit()
         flash('Post updated', 'success')
-        return redirect(url_for('posts.post_read', post_id=post.id))
+        return redirect(url_for('bp.post_read', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
     return render_template('post_create.html', title='Update Post', form=form, legend="Update Post")
 
 
-@posts.route("/post/<int:post_id>/delete", methods=["POST"])
+@bp.route("/post/<int:post_id>/delete", methods=["POST"])
 @login_required
 def post_delete(post_id):
     post = Post.query.get_or_404(post_id)
